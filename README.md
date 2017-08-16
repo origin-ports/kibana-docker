@@ -1,3 +1,10 @@
+##Openshift Instructions
+
+Has xpack and asset precompilation enabled and also the user directive has been removed.
+
+
+
+
 ## Description
 
 This is the official Kibana image created by Elastic Inc.

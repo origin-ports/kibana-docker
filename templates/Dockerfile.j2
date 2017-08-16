@@ -36,16 +36,14 @@ COPY config/kibana.yml /usr/share/kibana/config/
 # variables and translate them to Kibana CLI options.
 COPY bin/kibana-docker /usr/local/bin/
 
-# Add a self-signed SSL certificate for use in examples.
-COPY ssl/kibana.example.org.* /usr/share/kibana/config/
+RUN timeout 10 /usr/local/bin/kibana-docker; exit 0
+RUN chgrp -Rf root /usr/share/kibana/optimize/ && chmod -Rf g+w /usr/share/kibana/optimize/
+#RUN kibana-plugin install {{ x_pack }}
 
-# Provide a non-root user to run the process.
 RUN groupadd --gid 1000 kibana && \
     useradd --uid 1000 --gid 1000 \
       --home-dir /usr/share/kibana --no-create-home \
       kibana
 USER kibana
-
-RUN kibana-plugin install {{ x_pack }}
 
 CMD /usr/local/bin/kibana-docker

@@ -4,7 +4,7 @@ export PATH := ./bin:./venv/bin:$(PATH)
 PYTHON ?= $(shell command -v python3.5 || command -v python3.6)
 
 ifndef ELASTIC_VERSION
-ELASTIC_VERSION := $(shell ./bin/elastic-version)
+ELASTIC_VERSION := 5.5.1
 endif
 
 ifdef STAGING_BUILD_NUM
@@ -13,8 +13,8 @@ else
 VERSION_TAG=$(ELASTIC_VERSION)
 endif
 
-ELASTIC_REGISTRY=docker.elastic.co
-VERSIONED_IMAGE=$(ELASTIC_REGISTRY)/kibana/kibana:$(VERSION_TAG)
+ELASTIC_REGISTRY=
+VERSIONED_IMAGE=$(ELASTIC_REGISTRY)hacktohell/kibana-openshift:$(VERSION_TAG)
 
 test: lint build docker-compose.yml
 	./bin/testinfra tests
